@@ -86,13 +86,21 @@ const Login: React.FC = () => {
                     router.push("/register");
                 } else if (status === 409) {
                     toast.error(data.error || "Invalid Credentials", {
-                        invert: false,
+                        style: {
+                            "backgroundColor": "#FADBD8",
+                            "color": "black",
+                            "border": "none"
+                        },
                         duration: 2500
                     });
                     form.resetField('password');
                 } else {
                     toast.error(data.error || "Some Error Occured", {
-                        invert: false,
+                        style: {
+                            "backgroundColor": "#FADBD8",
+                            "color": "black",
+                            "border": "none"
+                        },
                         duration: 2500
                     });
                     form.reset();

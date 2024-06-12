@@ -17,15 +17,6 @@ export default function Home() {
         <Button
           className=" p-6"
           onClick={() => {
-            toast.success("success", {
-              richColors: true,
-              style: {
-                "backgroundColor": "#D5F5E3",
-                "color": "black",
-                "border": "none"
-              },
-              duration: 1500
-            })
             router.push('/login');
           }}
         >
