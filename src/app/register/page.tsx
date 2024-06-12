@@ -57,7 +57,7 @@ const Register = () => {
     // handle Submit of Form
     const handleSubmitAction = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response: AxiosResponse = await axios.post("/api/auth/user/register", {values}, {
+            const response: AxiosResponse = await axios.post("/api/auth/user/register", { values }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -158,7 +158,14 @@ const Register = () => {
                     </Form>
                 </section>
                 <section className=' w-3/5 h-screen flex justify-center items-center'>
-                    <Image src={'./register.svg'} alt={'login image'} width={0.45 * screen.width} height={0.45 * screen.height} />
+                    {typeof window !== 'undefined' && (
+                        <Image
+                            src={'./register.svg'}
+                            alt={'register image'}
+                            width={0.45 * window.screen.width}
+                            height={0.45 * window.screen.height}
+                        />
+                    )}
                 </section>
             </main>
         </React.Fragment>

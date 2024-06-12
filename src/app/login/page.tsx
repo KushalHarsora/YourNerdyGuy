@@ -148,7 +148,14 @@ const Login: React.FC = () => {
                     </Form>
                 </section>
                 <section className=' w-3/5 h-screen flex justify-center items-center'>
-                    <Image src={'./login.svg'} alt={'login image'} width={0.45 * screen.width} height={0.45 * screen.height} />
+                    {typeof window !== 'undefined' && (
+                        <Image
+                            src={'./login.svg'}
+                            alt={'login image'}
+                            width={0.45 * window.screen.width}
+                            height={0.45 * window.screen.height}
+                        />
+                    )}
                 </section>
             </main>
         </React.Fragment>
