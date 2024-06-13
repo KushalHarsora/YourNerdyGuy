@@ -106,7 +106,12 @@ const Register = () => {
     return (
         <React.Fragment>
             <main>
-                <section className=' w-2/5 h-screen absolute left-[60vw] flex flex-col gap-12 justify-center p-[5vw] bg-orange-50'>
+                <section className=' w-2/5 h-screen absolute left-[60vw] flex flex-col gap-12 justify-center p-[5vw] bg-orange-50 max-lg:w-screen max-lg:left-0'>
+                    <div className=' w-full text-center'>
+                        <h1 className=' font-bold text-2xl text-orange-600 underline decoration-wavy tracking-wide'>
+                            REGISTER
+                        </h1>
+                    </div>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(handleSubmitAction)} className=' space-y-6'>
                             <FormField
@@ -157,7 +162,7 @@ const Register = () => {
                         </form>
                     </Form>
                 </section>
-                <section className=' w-3/5 h-screen flex justify-center items-center'>
+                <section className=' w-3/5 h-screen flex justify-center items-center max-lg:hidden'>
                     {typeof window !== 'undefined' && (
                         <Image
                             src={'./register.svg'}

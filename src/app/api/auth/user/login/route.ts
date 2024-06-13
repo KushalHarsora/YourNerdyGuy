@@ -8,10 +8,11 @@ connect();
 
 export async function POST(request: NextRequest) {
     try {
-        const requestBody = await request.json();
-        const { email, password } = JSON.parse(requestBody.body);
+        const { values } = await request.json();
+        console.log(values);
+        
 
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: values.email });
         console.log(user);
         
         if (!user) {
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "User Does not Exist" }, { status: 401 });
         } else {
             // Validate Password
-            const validatePassword = await bcryptjs.compare(password, user.password);
+            const validatePassword = await bcryptjs.compare(values.password, user.password);
             if (validatePassword) {
 
                 const tokenData = {

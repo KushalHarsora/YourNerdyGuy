@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -52,11 +52,10 @@ const Login: React.FC = () => {
     // handle Submit of Form
     const handleSubmitAction = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response = await axios.post('/api/auth/user/login', {
+            const response: AxiosResponse = await axios.post('/api/auth/user/login',{ values },  {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(values),
             });
             const data = response.data
             if (response.status === 200) {
@@ -116,8 +115,13 @@ const Login: React.FC = () => {
 
     return (
         <React.Fragment>
-            <main>
-                <section className=' w-2/5 p-[7vw] h-screen absolute left-[60vw] flex flex-col gap-12 justify-center bg-orange-50'>
+            <main className=' w-screen h-screen'>
+                <section className=' w-2/5 p-[7vw] h-screen absolute left-[60vw] flex flex-col gap-12 justify-center bg-orange-50 max-lg:w-screen max-lg:left-0'>
+                    <div className=' w-full text-center'>
+                        <h1 className=' font-bold text-2xl text-orange-600 underline decoration-wavy tracking-wide'>
+                            LOGIN
+                        </h1>
+                    </div>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(handleSubmitAction)} className=' space-y-6'>
                             <FormField
@@ -155,7 +159,7 @@ const Login: React.FC = () => {
                         </form>
                     </Form>
                 </section>
-                <section className=' w-3/5 h-screen flex justify-center items-center'>
+                <section className=' w-3/5 h-screen flex justify-center items-center max-lg:hidden'>
                     {typeof window !== 'undefined' && (
                         <Image
                             src={'./login.svg'}
