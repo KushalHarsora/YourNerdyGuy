@@ -9,8 +9,7 @@ connect();
 export async function POST(request: NextRequest) {
     try {
         const { values } = await request.json();
-        console.log(values);
-        
+        console.log(values); // debug line
 
         const user = await User.findOne({ email: values.email });
         console.log(user);
@@ -29,13 +28,19 @@ export async function POST(request: NextRequest) {
                     email: user.email,
                 }
                 // Create Token
-                const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY!, {expiresIn: "1d"});
-                const Response = NextResponse.json({ message: "Login Successful", name: user.username }, { status: 200 });
+                const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY!, { expiresIn: "1d" });
+                const response = NextResponse.json({ message: "Login Successful", name: user.username }, { status: 200 });
                 // Set Cookies
-                Response.cookies.set("token", token, {
+                response.cookies.set("token", token, {
                     httpOnly: true
-                })
-                return Response;
+                });
+
+                if (user.interests.length === 0) {
+                    // If user has no interests
+                    return NextResponse.json({ message: "No Interests Set.", name: user.username }, { status: 209 });
+                }
+
+                return response;
             } else {
                 return NextResponse.json({ error: "Invalid Credentials" }, { status: 409 });
             }

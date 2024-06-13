@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { string } from "zod";
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -23,13 +24,16 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    interests: {
+        type: [String],
+        default: []
+    },
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date
 });
 
-const User = mongoose.models.users || mongoose.model
-("users", userSchema);
+const User = mongoose.models.users || mongoose.model("users", userSchema);
 
 export default User

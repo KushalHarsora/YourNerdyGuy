@@ -52,12 +52,24 @@ const Login: React.FC = () => {
     // handle Submit of Form
     const handleSubmitAction = async (values: z.infer<typeof formSchema>) => {
         try {
-            const response: AxiosResponse = await axios.post('/api/auth/user/login',{ values },  {
+            const response: AxiosResponse = await axios.post('/api/auth/user/login', { values },  {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
             const data = response.data
+            if (response.status === 209) {
+                toast.success(data.message || "Login successful!", {
+                    style: {
+                        "backgroundColor": "#D5F5E3",
+                        "color": "black",
+                        "border": "none"
+                    },
+                    duration: 1500
+                });
+                router.push(`/interest/${data.name}`);  
+            }
+
             if (response.status === 200) {
                 toast.success(data.message || "Login successful!", {
                     style: {
